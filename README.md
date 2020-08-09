@@ -1,5 +1,11 @@
 # ECPay All In One For Node.js
 ---
+## Install
+    yarn add ecpay-aio-node
+
+  OR  
+
+    npm install ecpay-aio-node
 
 ## How to use
 ```
