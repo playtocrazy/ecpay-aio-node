@@ -5,9 +5,9 @@ const ecpay_payment = require('../lib/ecpay_payment.js');
 //參數值為[PLEASE MODIFY]者，請在每次測試時給予獨特值
 //若要測試非必帶參數請將base_param內註解的參數依需求取消註解 //
 let base_param = {
-    MerchantTradeNo: 'f0a0sa9fabkkuy111', //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
-    MerchantTradeDate: '2018/06/13 15:45:30', //ex: 2017/02/13 15:45:30
-    TotalAmount: '100',
+    MerchantTradeNo: '00000000000000000001', //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
+    MerchantTradeDate: '2020/08/09 15:50:30', //ex: 2017/02/13 15:45:30
+    TotalAmount: '1000',
     TradeDesc: '測試交易描述',
     ItemName: '測試商品等',
     ReturnURL: 'https://us-central1-qraft-app.cloudfunctions.net/dev-createSampleOrder',
@@ -38,7 +38,7 @@ let inv_params = {
      TaxType: '1',
      CarruerType: '',
      CarruerNum: '',
-     Donation: '2',
+     Donation: '0',
      LoveCode: '',
      Print: '1',
      InvoiceItemName: '測試商品1|測試商品2',
@@ -47,10 +47,19 @@ let inv_params = {
      InvoiceItemPrice: '35|10',
      InvoiceItemTaxType: '1|1',
      InvoiceRemark: '測試商品1的說明|測試商品2的說明',
-     DelayDay: '0',
+     DelayDay: 0,
      InvType: '07'
 };
 
-let create = new ecpay_payment();
+let create = new ecpay_payment({
+    operationMode: "Test",
+    isProjectContractor: "N",
+    ignorePayment: [],
+    merchantInfo: {
+        merchantID: "",
+        hashKey: "",
+        hashIV: ""
+    }
+});
 let htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params);
 console.log(htm);

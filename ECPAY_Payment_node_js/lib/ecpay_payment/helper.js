@@ -12,25 +12,16 @@ const https = require('https');
 // const EventEmitter = require('events').EventEmitter;
 
 class APIHelper {
-    constructor(){
-        this.cont = fs.readFileSync(__dirname + '/../../conf/payment_conf.xml').toString();
-        this.cont_xml = et.parse(this.cont);
-        this.active_merc_info = this.cont_xml.findtext('./MercProfile');
-        this.op_mode = this.cont_xml.findtext('./OperatingMode');
-        this.contractor_stat = this.cont_xml.findtext('./IsProjectContractor');
-        this.merc_info = this.cont_xml.findall(`./MerchantInfo/MInfo/[@name="${this.active_merc_info}"]`);
-        this.ignore_payment = [];
-        this.ignore_info = this.cont_xml.findall('./IgnorePayment//Method');
-        for(let t = 0, l = this.ignore_info.length; t < l; t++) {
-            this.ignore_payment.push(this.ignore_info[t].text);
+    constructor(options){
+        if (!options.merchantInfo || !options.merchantInfo.merchantID || !options.merchantInfo.hashIV || !options.merchantInfo.hashKey) {
+            throw new Error("Should specify the complete `merchantInfo.merchantID`, `merchantInfo.hashIV` and `merchantInfo.hashKey`")
         }
-        if (this.merc_info !== []) {
-            this.merc_id = this.merc_info[0].findtext('./MerchantID');
-            this.hkey = this.merc_info[0].findtext('./HashKey');
-            this.hiv = this.merc_info[0].findtext('./HashIV');
-        } else {
-            throw new Error(`Specified merchant setting name (${this.active_merc_info}) not found.`);
-        }
+        this.op_mode = options.operationMode || "Test";
+        this.contractor_stat = options.isProjectContractor || "N";
+        this.ignore_payment = options.ignorePayment || [];
+        this.merc_id = options.merchantInfo.merchantID;
+        this.hkey = options.merchantInfo.hashKey;
+        this.hiv = options.merchantInfo.hashIV;
         this.date = new Date();
     }
     get_mercid(){

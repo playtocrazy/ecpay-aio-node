@@ -1,7 +1,7 @@
 {
-  "name": "ecpay_payment_nodejs",
-  "version": "1.0.0",
-  "description": "綠界全方位金流串接用SDK",
+  "name": "ecpay-aio-node",
+  "version": "0.0.1",
+  "description": "ecpay all-in-one SDK for Node.js forked from ECPay/ECPayAIO_Node.js",
   "main": "ecpay_payment.js",
   "dependencies": {
     "elementtree": "^0.1.7",
@@ -17,6 +17,10 @@
     "node",
     "package"
   ],
-  "author": "ying.wu <ying.wu@opay.tw>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playtocrazy/ecpay-aio-node.git"
+  },
+  "author": "Richard Lin <playtocrazy@gmail.com> (https://github.com/playtocrazy)",
   "license": "ISC"
 }
