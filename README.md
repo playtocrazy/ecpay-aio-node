@@ -15,7 +15,6 @@ let base_param = {
     EncryptType:'1'
 };
 
-// 若要測試開立電子發票，請將inv_params內的"所有"參數取消註解 //
 let inv_params = {
      RelateNumber: 'SJDFJas97Gj11VOMSfK',
      CustomerID: '',
