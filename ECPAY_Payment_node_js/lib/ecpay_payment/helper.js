@@ -78,43 +78,46 @@ class APIHelper {
         }
     }
     gen_chk_mac_value(params, mode=1){
-       if (params.constructor === Object) {
-           // throw exception if param contains CheckMacValue, HashKey, HashIV
-           let sec = ['CheckMacValue', 'HashKey', 'HashIV'];
-           sec.forEach(function (pa) {
-               if (Object.keys(params).includes(pa)) {
-                   throw new Error(`Parameters shouldn't contain ${pa}`);
-               }
-           });
-
-           let od = {};
-           let temp_arr = (Object.keys(params).sort(function (a, b) {
-               return a.toLowerCase().localeCompare(b.toLowerCase());
-           }));
-           // console.log(temp_arr);
-           let raw = temp_arr.forEach(function (key) {od[key] = params[key];});
-           raw = JSON.stringify(od).toLowerCase().replace(/":"/g, '=');
-           raw = raw.replace(/","|{"|"}/g, '&');
-           raw = this.urlencode_dot_net(`HashKey=${this.hkey}${raw}HashIV=${this.hiv}`);
-           console.log(raw);
-
-           let chksum = "";
-           switch (mode){
-               case 0:
-                   chksum = crypto.createHash('md5').update(raw).digest('hex');
-                   break;
-               case 1:
-                   chksum = crypto.createHash('sha256').update(raw).digest('hex');
-                   break;
-               default:
-                   throw new Error("Unexpected hash mode.");
-           }
-
-           return chksum.toUpperCase();
-
-       } else {
-           throw new Error("Data received is not a Object.");
-       }
+        if (params.constructor === Object) {
+            // throw exception if param contains CheckMacValue, HashKey, HashIV
+            let sec = ['CheckMacValue', 'HashKey', 'HashIV'];
+            sec.forEach(function (pa) {
+                if (Object.keys(params).includes(pa)) {
+                    throw new Error(`Parameters shouldn't contain ${pa}`);
+                }
+            });
+      
+            // solution inspired from https://gist.github.com/tom19960222/166fff7cf797b4392f4324db86b34105?fbclid=IwAR1iqdWR5z-khgTv0YlfoTQ6rifJvrKHBjiUWclt0ANVu96YO-MeQqW2-wY
+            let checkValue = Object.keys(params)
+                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+                .map(key => `${key}=${params[key]}`)
+                .join("&");
+            checkValue = encodeURIComponent(`HashKey=${this.hkey}&${checkValue}&HashIV=${this.hiv}`).toLowerCase();
+            checkValue = checkValue.replace(/%20/g, '+')
+                         .replace(/%2d/g, '-')
+                         .replace(/%5f/g, '_')
+                         .replace(/%2e/g, '.')
+                         .replace(/%21/g, '!')
+                         .replace(/%2a/g, '*')
+                         .replace(/%28/g, '(')
+                         .replace(/%29/g, ')');
+            console.log(checkValue)
+      
+            switch (mode){
+                case 0:
+                     checkValue = crypto.createHash('md5').update(checkValue).digest('hex');
+                    break;
+                case 1:
+                     checkValue = crypto.createHash('sha256').update(checkValue).digest('hex');
+                    break;
+                default:
+                    throw new Error("Unexpected hash mode.");
+            }
+      
+            return checkValue.toUpperCase();
+        } else {
+            throw new Error("Data received is not a Object.");
+        }
     }
     gen_aes_encrypt(params){
         if (params.constructor === Object){
