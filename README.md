@@ -63,7 +63,7 @@ const htm = create.payment_client.aio_check_out_all(parameters = base_param, inv
 
 There is a bug in the original gen_chk_mac_value function from ECPay Node.js SDK, it will generate the wrong CheckMacValue and cause `CheckMacValue Error` when you are posting your form to ECPay site.
 
-For the detail of the code change you can see [here](https://github.com/playtocrazy/ecpay-aio-node/commit/9bc3a2cc95845ed5a98564af325b472d554789f1?branch=9bc3a2cc95845ed5a98564af325b472d554789f1&diff=split).
+Now it was fixed, For the detail of the code change you can see [here](https://github.com/playtocrazy/ecpay-aio-node/commit/9bc3a2cc95845ed5a98564af325b472d554789f1?branch=9bc3a2cc95845ed5a98564af325b472d554789f1&diff=split).
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
