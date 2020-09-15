@@ -21,22 +21,19 @@ class ECpayPaymentClient{
         this._aiochkout_base_proc(parameters, invoice, unsupport, 'ALL');
         // handle Ignore Payment
         parameters['IgnorePayment'] = this.helper.get_ignore_pay().join('#');
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }
 
     aio_check_out_credit_onetime(parameters, invoice={}){
         let unsupport = [];
         this._aiochkout_base_proc(parameters, invoice, unsupport, 'Credit');
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }
     //<!--2019/09/30暫時關閉GooglePay付款方式-->
     /*aio_check_out_googlepay(parameters, invoice={}){
         let unsupport = [];
         this._aiochkout_base_proc(parameters, invoice, unsupport, 'GooglePay');
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }*/
 
     aio_check_out_credit_divide(parameters, invoice={}, installment, amount){
@@ -46,8 +43,7 @@ class ECpayPaymentClient{
         if (parseInt(parameters['TotalAmount']) !== parseInt(amount)){
             parameters['InstallmentAmount'] = amount;
         }
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }
 
     aio_check_out_credit_period(period_info, parameters, invoice={}){
@@ -64,8 +60,7 @@ class ECpayPaymentClient{
             Object.assign(parameters, period_info);
                 // Add total amount protection!!!
 
-            let html = this._aiochkout_pos_proc(parameters);
-            return html;
+            return this._aiochkout_pos_proc(parameters);
         } else {
             throw new Error(`Received period_info argument must be a Object.`);
         }
@@ -89,15 +84,13 @@ class ECpayPaymentClient{
         } else {
             parameters['PaymentInfoURL'] = url_return_payinfo;
         }
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }
 
     aio_check_out_webatm(parameters, invoice = {}){
         let unsupport = ['IgnorePayment'];
         this._aiochkout_base_proc(parameters, invoice, unsupport, 'WebATM');
-        let html = this._aiochkout_pos_proc(parameters);
-        return html;
+        return this._aiochkout_pos_proc(parameters);
     }
 
     aio_check_out_cvs(cvs_info, parameters, invoice = {}, client_redirect_url = ''){
@@ -117,8 +110,7 @@ class ECpayPaymentClient{
             } else {
                 parameters['ClientRedirectURL'] = client_redirect_url;
             }
-            let html = this._aiochkout_pos_proc(parameters);
-            return html;
+            return this._aiochkout_pos_proc(parameters);
         } else {
             throw new Error(`Received cvs_info argument must be a Object.`);
         }
@@ -140,8 +132,7 @@ class ECpayPaymentClient{
             } else {
                 parameters['ClientRedirectURL'] = client_redirect_url;
             }
-            let html = this._aiochkout_pos_proc(parameters);
-            return html;
+            return this._aiochkout_pos_proc(parameters);
         } else {
             throw new Error(`Received cvs_info argument must be a Object.`);
         }
@@ -198,7 +189,10 @@ class ECpayPaymentClient{
         let api_url = this.verify_aiochkout.get_svc_url('AioCheckOut', this.helper.get_op_mode());
         let htm = this.helper.gen_html_post_form(api_url, '_form_aiochk', params);
         //return post htm
-        return htm;
+        return {
+            htm,
+            checkMacValue: chkmac
+        };
     }
 }
 module.exports = ECpayPaymentClient;
