@@ -1,6 +1,15 @@
 # ECPay All In One For Node.js
 ---
+## The differences
+
+This repository is forked from [ECPay/ECPayAIO_Node.js](https://github.com/ECPay/ECPayAIO_Node.js), but there're three major differences:
+
+1. Using parameters injection instead of XML configuration.  
+2. Exporting `htm` and `checkMacValue` when you are creating the order form. (we need `checkMacValue` to identify the payment notification from ECPay is real and secure.)
+3. Fix gen_chk_mac_value function to generate a valid `checkMacValue`
+
 ## Install
+
     yarn add ecpay-aio-node
 
   OR  
@@ -8,7 +17,8 @@
     npm install ecpay-aio-node
 
 ## How to use
-```
+
+```javascript
 import ecpay from 'ecpay-aio-node'
 
 let base_param = {
@@ -56,7 +66,7 @@ const create = new ecpay({
         hashIV: "" // your HashIV
     }
 });
-const htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params);
+const { htm, checkMacValue } = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params);
 ```
 
 ## Fix gen_chk_mac_value function  
