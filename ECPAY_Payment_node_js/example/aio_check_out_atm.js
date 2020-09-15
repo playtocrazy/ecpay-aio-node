@@ -56,5 +56,5 @@ let exp = '7';
 let cli_redir_url = 'http://www.ecpay.com.tw';
 
 let create = new ecpay_payment();
-let htm = create.payment_client.aio_check_out_atm(parameters = base_param, url_return_payinfo = pay_info_url, exp_period = exp, client_redirect = cli_redir_url, invoice = inv_params);
+let { htm, checkMacValue } = create.payment_client.aio_check_out_atm(parameters = base_param, url_return_payinfo = pay_info_url, exp_period = exp, client_redirect = cli_redir_url, invoice = inv_params);
 console.log(htm);

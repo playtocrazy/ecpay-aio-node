@@ -52,5 +52,5 @@ let inv_params = {
 };
 
 let create = new ecpay_payment();
-let htm = create.payment_client.aio_check_out_googlepay(parameters = base_param, invoice = inv_params);
+let { htm, checkMacValue } = create.payment_client.aio_check_out_googlepay(parameters = base_param, invoice = inv_params);
 console.log(htm);

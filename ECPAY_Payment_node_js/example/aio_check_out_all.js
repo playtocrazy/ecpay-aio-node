@@ -61,5 +61,5 @@ let create = new ecpay_payment({
         hashIV: ""
     }
 });
-let htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params);
+let { htm, checkMacValue } = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params);
 console.log(htm);

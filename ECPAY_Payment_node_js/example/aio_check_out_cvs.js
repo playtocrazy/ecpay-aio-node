@@ -62,5 +62,5 @@ let cvs_params = {
 let client_redirect = '';
 
 let create = new ecpay_payment();
-let htm = create.payment_client.aio_check_out_cvs(cvs_info = cvs_params, parameters = base_param, invoice = inv_params, client_redirect_url = client_redirect);
+let { htm, checkMacValue } = create.payment_client.aio_check_out_cvs(cvs_info = cvs_params, parameters = base_param, invoice = inv_params, client_redirect_url = client_redirect);
 console.log(htm);
