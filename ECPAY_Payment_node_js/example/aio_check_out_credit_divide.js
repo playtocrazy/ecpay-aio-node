@@ -54,5 +54,5 @@ let inst = '12'; //分期期數
 let amt = 100; //分期總金額
 
 let create = new ecpay_payment();
-let { htm, checkMacValue } = create.payment_client.aio_check_out_credit_divide(parameters = base_param, invoice = inv_params, installment = inst, amount = amt);
+const htm = create.payment_client.aio_check_out_credit_divide(parameters = base_param, invoice = inv_params, installment = inst, amount = amt);
 console.log(htm);

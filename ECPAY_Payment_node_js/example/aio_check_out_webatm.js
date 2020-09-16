@@ -51,5 +51,5 @@ let inv_params = {
 };
 
 let create = new ecpay_payment();
-let { htm, checkMacValue } = create.payment_client.aio_check_out_webatm(parameters = base_param, invoice = inv_params);
+const htm = create.payment_client.aio_check_out_webatm(parameters = base_param, invoice = inv_params);
 console.log(htm);

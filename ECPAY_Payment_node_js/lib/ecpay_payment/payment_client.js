@@ -189,10 +189,7 @@ class ECpayPaymentClient{
         let api_url = this.verify_aiochkout.get_svc_url('AioCheckOut', this.helper.get_op_mode());
         let htm = this.helper.gen_html_post_form(api_url, '_form_aiochk', params);
         //return post htm
-        return {
-            htm,
-            checkMacValue: chkmac
-        };
+        return htm;
     }
 }
 module.exports = ECpayPaymentClient;

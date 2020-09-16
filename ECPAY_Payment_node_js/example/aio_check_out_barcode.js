@@ -62,5 +62,5 @@ let barcode_params = {
 let client_redirect = '';
 
 let create = new ecpay_payment();
-let { htm, checkMacValue } = create.payment_client.aio_check_out_barcode(barcode_info = barcode_params, parameters = base_param, invoice = inv_params, client_redirect_url = client_redirect);
+const htm = create.payment_client.aio_check_out_barcode(barcode_info = barcode_params, parameters = base_param, invoice = inv_params, client_redirect_url = client_redirect);
 console.log(htm);
