@@ -2,7 +2,7 @@
 ---
 ## The differences
 
-This repository is forked from [ECPay/ECPayAIO_Node.js](https://github.com/ECPay/ECPayAIO_Node.js), but there're two major differences:
+This repository forked from [ECPay/ECPayAIO_Node.js](https://github.com/ECPay/ECPayAIO_Node.js), but there're two major differences:
 
 1. Using parameters injection instead of XML configuration.  
 2. Fix gen_chk_mac_value function to generate a valid `checkMacValue`
