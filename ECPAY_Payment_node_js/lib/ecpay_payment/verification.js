@@ -351,8 +351,12 @@ class AioCheckOutParamVerify extends PaymentVerifyBase{
                    throw new ECpayError.ECpayInvalidParam(`Parameter value cannot be null.`);
                }
             });
+            
             // 1. 比對欄位是否缺乏
-            let inv_param = this.aio_conditional_param['InvoiceMark']['Y'];
+            // workaround for fix unexcepted error, if this.aio_conditional_param['InvoiceMark'] is undefined then do not validate inv_param
+            // not sure why I get the error: 'Y' of undefined
+            let inv_param = this.aio_conditional_param['InvoiceMark'] ? this.aio_conditional_param['InvoiceMark']['Y'] : [];
+            
             let input_param = Object.keys(params);
             inv_param.forEach(function (pname) {
                 if (input_param.indexOf(pname, 0) === -1){
