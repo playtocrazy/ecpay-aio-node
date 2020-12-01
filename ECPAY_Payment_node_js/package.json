@@ -1,6 +1,6 @@
 {
   "name": "ecpay-aio-node",
-  "version": "0.0.5-beta1",
+  "version": "0.0.5-beta",
   "description": "ecpay all-in-one SDK for Node.js forked from ECPay/ECPayAIO_Node.js",
   "main": "ecpay_payment.js",
   "dependencies": {
